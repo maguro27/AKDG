@@ -1,112 +1,99 @@
-
-
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>AutomaticPaperSummaryGeneration</title>
+    <title>Adversarial Knowledge Distillation for a Compact Generator</title>
     <link rel="stylesheet" type="text/css" href="./pvg.css">
     <link rel="shortcut icon" type="image/png" href="./img/cc_logo_1_crop.png">
 </head>
 
 <body>
-<script type="text/javascript" src="./header.js"></script>
+    <script type="text/javascript" src="./header.js"></script>
 
-<style>
-a.myclass {
-    color:#DE382D;
-    text-decoration: underline
-}
-</style>
+    <style>
+        a.myclass {
+            color: #DE382D;
+            text-decoration: underline
+        }
+    </style>
 
-<style>
-a.link {
-    text-decoration: underline
-}
-</style>
+    <style>
+        a.link {
+            text-decoration: underline
+        }
+    </style>
 
-<header id="header">
-    <div class="container">
-        <div class="header">
-            <h1 align="center" style="font-size: 30pt;"><b>Automatic Paper Summary Generation</b></h1><br/>
+    <header id="header">
+        <div class="container">
+            <div class="header">
+                <h1 align="center" style="font-size: 30pt;"><b>Adversarial Knowledge Distillation for a Compact
+                        Generator</b></h1><br />
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<center><img src="./img/teaser.png" style="width: 100%;"/></center>
+    <h2>Abstract</h2>
+    <p>
+        In this paper, we propose memory-efficient Generative Adversarial Nets (GANs) in line with knowledge
+        distillation. Most existing GANs have a shortcoming in terms of the number of model parameters and low
+        processing speed. Here, to tackle the problem, we propose Adversarial Knowledge Distillation for Generative
+        models (AKDG) for highly efficient GANs, in terms of unconditional generation. Using AKDG, model size and
+        processing speed are substantively reduced. Through an adversarial training exercise with a distillation
+        discriminator, a student generator successfully mimics a teacher generator in fewer model layers and fewer
+        parameters and at a higher processing speed. Moreover, our AKDG is network architecture-agnostic. Comparison of
+        AKDG-applied models to vanilla models suggests that it achieves closer scores to a teacher generator and more
+        efficient performance than a baseline method with respect to Inception Score (IS) and Frechet Inception Distance
+        (FID). In CIFAR-10 experiments, improving IS/FID 1.17pt/55.19pt and in LSUN bedroom experiments, improving FID
+        71.1pt in comparison to the conventional distillation method for GANs.</p>
 
-<h2>Abstract</h2>
-<p>
-Due to the recent boom in artificial intelligence (AI) research, including  computer vision (CV), 
-it has become impossible for researchers in these fields  to keep up with the exponentially increasing number of manuscripts. 
-In response to this situation, this paper proposes the paper summary generation (PSG) task using a simple but effective method to automatically generate an academic paper summary from raw PDF data. 
-We realized PSG by combination of vision-based  supervised components detector and language-based unsupervised important  sentence extractor, which is applicable for a trained format of manuscripts. 
-We show the quantitative evaluation of ability of simple vision-based components extraction, and the qualitative evaluation that our system can extract both visual item and sentence that are helpful for understanding. 
-After processing via our PSG, the 979 manuscripts accepted by the Conference on Computer Vision and Pattern Recognition (CVPR) 2018 are available. 
-It is believed that the proposed method will provide a better way for researchers to stay caught with important academic papers.</p>
+    <br>
+    <h2>Paper</h2>
+    <ul>
+        <a href="https://scholar.google.com/citations?user=ZZvzcpAAAAAJ&hl=ja" class="">Hideki Tsunashima</a>,
+        <a href="http://hirokatsukataoka.net/" class="">Hirokatsu Kataoka</a>,
+        <a href="https://scholar.google.com/citations?user=S8DWBvMAAAAJ&hl=en" class="">Junji Yamato</a>,
+        <a href="https://scholar.google.com/citations?user=9SDbpSsAAAAJ&hl=ja" class="">Qiu Chen</a>,
+        <a href="https://scholar.google.co.jp/citations?user=4B-C50EAAAAJ&hl=ja" class="">Shigeo Morishima</a>. <br>
+        <b>Adversarial Knowledge Distillation for a Compact Generator.</b> <br>
+        In Proc of ICPR, 2020. (Code will be available until December 2020.)<br>
+        <a href="" class="myclass">[paper]</a>
+        &nbsp;&nbsp; <a href="" class="myclass">[bibtex]</a>
+        <!--&nbsp;&nbsp; <a href="Im2Pano3D_talk.pdf"  class="myclass">[slide(.pdf)]</a> -->
 
-<br>
-<h2>Paper</h2>
-<ul>
-<a href="https://sites.google.com/site/shinatoyamamoto/"  class="">Shintaro Yamamoto*</a>, 
-<a href=""  class="">Yoshihiro Fukuhara*</a>, 
-<a href=""  class="">Ryota Suzuki</a>, 
-<a href=""  class="">Shigeo Morishima</a>, 
-<a href="http://hirokatsukataoka.net/"  class="">Hirokatsu Kataoka</a>. <br>
-<b>Automatic Paper Summary Generation from Visual and Textual Information.</b> <br>
-In ICMV, 2018. (* indicates equal contribution)<br>
-<a href="" class="myclass">[paper]</a> 
-&nbsp;&nbsp; <a href="bibtex.bib"  class="myclass">[bibtex]</a>  
-<!--&nbsp;&nbsp; <a href="Im2Pano3D_talk.pdf"  class="myclass">[slide(.pdf)]</a> -->
+    </ul>
 
-</ul>
+    <br>
+    <h2>Overview</h2>
+    We transfer the knowledge of the teacher into the student using Adversarial Knowledge Distillation for Generative
+    models (AKDG). We not only use the standard adversarial loss between the student discriminator and generator but
+    also employ the adversarial loss between the teacher and student. We review the two conventional Knowledge
+    Distillation
+    (KD) method for GANs. First, <a href="http://proceedings.mlr.press/v97/koratana19a.html" , class="myclass">LIT</a>
+    reduces residual blocks in GANs so that transfers the knowledge of the teacher into the student. However, it cannot
+    be applied to GANs, which do not employ residual blocks. Second, <a href="https://arxiv.org/abs/1902.00159" ,
+        class="myclass">MSE-method</a> use only Mean Squared Error (MSE) between the images generated by the teacher and
+    student. However, the generated images are heavily blurred because MSE incurs the blurred results in generative
+    models. As a result, the FID of the images generated by MSE-method is long. On the other hand, our AKDG not only can
+    be applied to any model architectures but also achieve the state-of-the-art FID score in KD for generative models.
+    <br><br><br>
+    <center>
+        <img src="./img/proposed_method.png" style="width: 100%;" />
+    </center>
 
-<br>
-<h2>Overview</h2>
-We divided the task into vision-based paper component detection and language-based important sentence extraction. 
-In the vision task, we detect academic paper components {title, authors, abstract, figures, and tables} with <a href="https://arxiv.org/pdf/1612.08242.pdf"  class="myclass">YOLOv2</a>, and simultaneously select the most important figure (MIF) in the paper. 
-In the language task, we summarize the sentences of the academic paper with <a href="http://courses.ischool.berkeley.edu/i256/f06/papers/luhn58.pdf" class="myclass">Luhn's method</a>.
-Finally, we generate a single-page summary that combines the components collected by the vision- and language-based methods.
-<br><br><br>
-<center>
-        <img src="./img/overview.png" style="width: 100%;"/>
-</center>
+    <br><br><br>
+    <h2>Example Results</h2>
 
-<br><br><br>
-<h2>Example Results</h2>
+    <center><img src="./img/cifar10_tab.png" style="width: 100%;" /></center>
 
-<ul>
-<li>Chen et.al. <a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Chen_CartoonGAN_Generative_Adversarial_CVPR_2018_paper.pdf" class="myclass">CartoonGAN: Generative Adversarial Networks for Photo Cartoonization.</a> In CVPR 2018. </li>
-</ul>
+    <center><img src="./img/cifar10_result.png" style="width: 100%;" /></center>
 
-<br>
-<center><img src="./img/CartoonGAN.jpg" style="width: 100%;"/></center>
+    <center><img src="./img/lsun_tab.png" style="width: 100%;" /></center>
+
+    <center><img src="./img/lsun_result.png" style="width: 100%;" /></center>
 
 
-<br><br><br><br>
-<ul>
-<li>Cao et.al. <a href="http://openaccess.thecvf.com/content_cvpr_2018/CameraReady/0732.pdf" class="myclass">Visual Question Reasoning on General Dependency Tree.</a> In CVPR 2018. </li>
-</ul>
+    <br><br><br>
+    <script type="text/javascript" src="./footer.js"></script>
+</body>
 
-<br>
-<center><img src="./img/VisualQuestionReasoning.jpg" style="width: 100%;"/></center>
-
-
-<br><br>
-<ul>
-<li>Grabner et.al. <a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Grabner_3D_Pose_Estimation_CVPR_2018_paper.pdf" class="myclass">3D Pose Estimation and 3D Model Retrieval for Objects in the Wild.</a> In CVPR 2018. </li>
-</ul>
-
-<br>
-<center><img src="./img/3DPoseEstimation.jpg" style="width: 100%;"/></center>
-
-<h2>Download</h2>
-<ul>
-    <li>
-        Summarization results of all CVPR 2018 proceedings (979 papers).<br>
-        <a href="https://drive.google.com/open?id=1xJy-MRn9QGWo4rnYm1Mv49jxwdKrwz31"  class="myclass">[Google Drive (921.9MB)]</a>
-    </li>
-</ul>
-
-<br><br><br>
-<script type="text/javascript" src="./footer.js"></script>
-</body></html>
+</html>
